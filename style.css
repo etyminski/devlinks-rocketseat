@@ -1,0 +1,216 @@
+* {
+  /* resetando o CSS padrao do browser */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* começa a mudar a altura e largura de acordo com o container */
+}
+
+:root {
+  --text-color: white;
+  --bg-url: url(./assets/bg-mobile.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.05);
+  --surface-color-hover: rgba(255, 255, 255, 0.02);
+  --highlight-color: rgba(255, 255, 255, 0.4);
+  --switch-bg-url: url(./assets/moon-stars.svg);
+}
+
+.light {
+  --text-color: black;
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.2);
+  --highlight-color: rgba(0, 0, 0, 0.1);
+  --switch-bg-url: url(./assets/sun.svg);
+}
+
+body {
+  /* background-image: url(./assets/bg-mobile.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  */
+  /* jeito mais facil!! : */
+  /* background: color image repeat position/size */
+  background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh; /* viewport height  */
+}
+
+/* modificando a imagem de fundo baseada no tamanho do dispositivo  */
+body * {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+}
+
+#container {
+  width: 100%;
+  max-width: 588px;
+  /* border: 1px solid red; */
+  margin: 56px auto 0px;
+  padding: 0 24px;
+}
+
+/* profile */
+#profile {
+  /* em display:inline ele aceita com que o pai (este) centralize ou fique left/right */
+  /* se fosse block nao ia dar */
+  text-align: center;
+  padding: 24px;
+}
+
+#profile img {
+  /* img procura a imagem q ta dentro do PROFILE */
+  width: 112px; /* tirei a altura do FIGMA // no CSS geralmente nao precisa por altura */
+  /* a altura geralmente segue o conteúdo da pagina */
+}
+
+#profile p {
+  font-weight: 500;
+  /* font-size: 16px; nao precisa pq os navegadores ja tem como padrao 16px */
+  line-height: 24px; /* 150% */
+  margin-top: 8px;
+}
+
+/* switch  */
+#switch {
+  position: relative;
+  width: 64px; /* mesmo tamanho do span pra ficar um containerzin pequeno */
+
+  /* esse switch tem o display block e tem q ser centralizado dessa forma: margin: 0 auto mas faltou 4px  */
+  margin: 4px auto;
+}
+
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center; /* faz assim pra n repetir a img */
+  border: 0;
+  border-radius: 50%;
+
+  position: absolute; /* faz uma sobreposição de camadas */
+  z-index: 1; /* mudando a posiçao nas camadas */
+
+  /* deixando no centro do span:  */
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: slide-back .3s;
+}
+/* fazendo a transiçao do botao de dark pra light */
+.light #switch button {
+  animation: slide-in .4s forwards;
+
+}
+
+#switch button:hover {
+  outline: 8px solid var(--highlight-color);
+}
+
+#switch span {
+  /* span tem por padrao propriedade inline e nao aceita algumas coisas como a largura entao poe display block */
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
+}
+
+/* links */
+ul {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 24px 0;
+}
+
+ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px 24px;
+
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+
+  backdrop-filter: blur(4px);
+
+  text-decoration: none;
+  font-weight: 500;
+
+  transition: background 0.5s;
+}
+
+/* pseudo-selector */
+ul li a:hover {
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
+}
+
+/* social links icons */
+#social-links {
+  display: flex;
+  justify-content: center;
+
+  padding: 24px 0;
+
+  font-size: 24px; /* tamanho dos icones */
+}
+
+#social-links a {
+  /* alinhando os icones com o hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background 0.3s;
+  border-radius: 50%; /* bolinha perfeita */
+}
+
+#social-links a:hover {
+  background: var(--highlight-color);
+}
+
+footer {
+  padding: 24px 0;
+  text-align: center;
+}
+
+/* media queries  */
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+/* isso td só funciona se tiver a linha "<meta name="viewport" content="width=device-width, initial-scale=1.0" />" */
+
+/* animation  */
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
+}
